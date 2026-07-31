@@ -34,12 +34,44 @@
             max-height: 0; opacity: 0; overflow: hidden;
         }
         #mobileMenu.open { max-height: 400px; opacity: 1; }
+        
+        /* استایل Modal */
+        #articleModal {
+            transition: opacity 0.3s ease;
+        }
+        #articleModal.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+        #articleModal:not(.hidden) {
+            opacity: 1;
+            pointer-events: auto;
+        }
+        .modal-content {
+            transform: scale(0.95);
+            transition: transform 0.3s ease;
+        }
+        #articleModal:not(.hidden) .modal-content {
+            transform: scale(1);
+        }
+        /* اسکرول بار زیبا */
+        .custom-scroll::-webkit-scrollbar {
+            width: 8px;
+        }
+        .custom-scroll::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 4px;
+        }
+        .custom-scroll::-webkit-scrollbar-thumb {
+            background: #d97706;
+            border-radius: 4px;
+        }
     </style>
 </head>
 <body class="bg-gray-50 text-gray-800">
 
     <!-- ==================== هدر ==================== -->
-    <header class="bg-white shadow-md sticky top-0 z-50">
+    <header class="bg-white shadow-md sticky top-0 z-40">
         <div class="container mx-auto px-4 py-4 flex justify-between items-center">
             <a href="index.html" class="flex items-center gap-2">
                 <div class="w-10 h-10 bg-brand-500 rounded-full flex items-center justify-center text-white text-xl">☀️</div>
@@ -104,9 +136,9 @@
                         <p class="text-gray-500 text-sm leading-relaxed mb-4">
                             آشنایی کامل با سلول‌های فتوولتائیک، نحوه تبدیل نور خورشید به برق و اجزای اصلی یک سیستم خورشیدی.
                         </p>
-                        <a href="#" class="text-brand-600 font-bold text-sm hover:text-brand-700 transition flex items-center gap-1">
+                        <button onclick="openArticle(1)" class="text-brand-600 font-bold text-sm hover:text-brand-700 transition flex items-center gap-1">
                             ادامه مطلب ←
-                        </a>
+                        </button>
                     </div>
                 </article>
 
@@ -127,9 +159,9 @@
                         <p class="text-gray-500 text-sm leading-relaxed mb-4">
                             چگونه با محاسبه دقیق هزینه‌ها و صرفه‌جویی‌ها، بهترین تصمیم اقتصادی برای نصب پنل بگیرید.
                         </p>
-                        <a href="#" class="text-brand-600 font-bold text-sm hover:text-brand-700 transition flex items-center gap-1">
+                        <button onclick="openArticle(2)" class="text-brand-600 font-bold text-sm hover:text-brand-700 transition flex items-center gap-1">
                             ادامه مطلب ←
-                        </a>
+                        </button>
                     </div>
                 </article>
 
@@ -150,9 +182,9 @@
                         <p class="text-gray-500 text-sm leading-relaxed mb-4">
                             مقایسه فنی و اقتصادی دو نوع رایج پنل خورشیدی؛ کدام یک برای شما مناسب‌تر است؟
                         </p>
-                        <a href="#" class="text-brand-600 font-bold text-sm hover:text-brand-700 transition flex items-center gap-1">
+                        <button onclick="openArticle(3)" class="text-brand-600 font-bold text-sm hover:text-brand-700 transition flex items-center gap-1">
                             ادامه مطلب ←
-                        </a>
+                        </button>
                     </div>
                 </article>
 
@@ -173,9 +205,9 @@
                         <p class="text-gray-500 text-sm leading-relaxed mb-4">
                             راهکارهای نصب سیستم خورشیدی در آپارتمان‌ها، مجوزهای لازم و محاسبه سهم هر واحد.
                         </p>
-                        <a href="#" class="text-brand-600 font-bold text-sm hover:text-brand-700 transition flex items-center gap-1">
+                        <button onclick="openArticle(4)" class="text-brand-600 font-bold text-sm hover:text-brand-700 transition flex items-center gap-1">
                             ادامه مطلب ←
-                        </a>
+                        </button>
                     </div>
                 </article>
 
@@ -196,9 +228,9 @@
                         <p class="text-gray-500 text-sm leading-relaxed mb-4">
                             اینورتر قلب سیستم خورشیدی است. یاد بگیرید چگونه اینورتر متناسب با نیاز خود انتخاب کنید.
                         </p>
-                        <a href="#" class="text-brand-600 font-bold text-sm hover:text-brand-700 transition flex items-center gap-1">
+                        <button onclick="openArticle(5)" class="text-brand-600 font-bold text-sm hover:text-brand-700 transition flex items-center gap-1">
                             ادامه مطلب ←
-                        </a>
+                        </button>
                     </div>
                 </article>
 
@@ -219,15 +251,56 @@
                         <p class="text-gray-500 text-sm leading-relaxed mb-4">
                             چگونه پنل‌ها را تمیز نگه دارید تا راندمانشان کاهش نیابد. نکات ایمنی و بازه‌های زمانی.
                         </p>
-                        <a href="#" class="text-brand-600 font-bold text-sm hover:text-brand-700 transition flex items-center gap-1">
+                        <button onclick="openArticle(6)" class="text-brand-600 font-bold text-sm hover:text-brand-700 transition flex items-center gap-1">
                             ادامه مطلب ←
-                        </a>
+                        </button>
                     </div>
                 </article>
 
             </div>
         </div>
     </section>
+
+    <!-- ==================== Modal مقاله ==================== -->
+    <div id="articleModal" class="fixed inset-0 bg-black/60 backdrop-blur-sm hidden z-50 flex items-center justify-center p-4">
+        <div class="modal-content bg-white rounded-2xl max-w-3xl w-full max-h-[90vh] overflow-y-auto custom-scroll relative shadow-2xl">
+            
+            <!-- دکمه بستن -->
+            <button onclick="closeArticle()" class="absolute top-4 left-4 w-10 h-10 bg-gray-100 hover:bg-gray-200 rounded-full flex items-center justify-center text-xl transition z-10">
+                ✕
+            </button>
+            
+            <!-- هدر مقاله -->
+            <div class="h-64 bg-gradient-to-br from-blue-600 to-blue-800 flex items-center justify-center text-6xl relative">
+                <div class="absolute inset-0 bg-black/20"></div>
+                <span id="modalIcon" class="relative z-10">☀️</span>
+            </div>
+            
+            <!-- محتوای مقاله -->
+            <div class="p-8 md:p-10">
+                <div class="flex items-center gap-3 mb-4 text-sm text-gray-500">
+                    <span id="modalCategory" class="bg-brand-100 text-brand-700 px-3 py-1 rounded-full">مبانی</span>
+                    <span id="modalDate">۳۱ تیر ۱۴۰۴</span>
+                    <span id="modalReadTime">۱۵ دقیقه مطالعه</span>
+                </div>
+                
+                <h2 id="modalTitle" class="text-2xl md:text-3xl font-bold text-gray-900 mb-6 leading-tight">
+                    عنوان مقاله
+                </h2>
+                
+                <div id="modalBody" class="prose prose-lg text-gray-700 leading-relaxed space-y-4">
+                    <!-- محتوا اینجا لود می‌شود -->
+                </div>
+                
+                <!-- دکمه بازگشت -->
+                <div class="mt-10 pt-6 border-t border-gray-100">
+                    <button onclick="closeArticle()" class="bg-brand-500 hover:bg-brand-600 text-white px-6 py-3 rounded-xl transition">
+                        ← بازگشت به لیست مقالات
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <!-- ==================== فوتر ==================== -->
     <footer class="bg-gray-900 text-gray-300 py-14">
@@ -268,15 +341,415 @@
 
     <!-- ==================== JavaScript ==================== -->
     <script>
+        // منوی موبایل
         const menuBtn = document.getElementById('menuBtn');
         const mobileMenu = document.getElementById('mobileMenu');
         menuBtn.addEventListener('click', () => {
             mobileMenu.classList.toggle('open');
             menuBtn.innerText = mobileMenu.classList.contains('open') ? '✕' : '☰';
         });
+
+        // دیتابیس مقالات
+        const articles = {
+            1: {
+                title: "پنل خورشیدی چیست و چگونه کار می‌کند؟",
+                category: "مبانی",
+                icon: "☀️",
+                readTime: "۱۵ دقیقه",
+                content: `
+                    <p><strong>پنل خورشیدی</strong> یا ماژول فتوولتائیک، دستگاهی است که نور خورشید را مستقیماً به الکتریسیته تبدیل می‌کند. این تکنولوژی بر پایه <strong>اثر فتوولتائیک</strong> کار می‌کند که در سال ۱۸۳۹ توسط ادموند بکرل کشف شد.</p>
+                    
+                    <h3 class="text-xl font-bold text-gray-900 mt-6 mb-3">سلول‌های خورشیدی چگونه کار می‌کنند؟</h3>
+                    <p>هر پنل خورشیدی از صدها سلول خورشیدی ساخته شده است. این سلول‌ها معمولاً از جنس <strong>سیلیکون نیمه‌هادی</strong> هستند. وقتی نور خورشید به سلول برخورد می‌کند:</p>
+                    <ul class="list-disc list-inside space-y-2 mr-4 text-gray-600">
+                        <li>فتون‌های نور انرژی خود را به الکترون‌های سیلیکون منتقل می‌کنند</li>
+                        <li>الکترون‌ها تحریک شده و حرکت می‌کنند</li>
+                        <li>این حرکت الکترون‌ها جریان الکتریسیته تولید می‌کند</li>
+                    </ul>
+
+                    <h3 class="text-xl font-bold text-gray-900 mt-6 mb-3">اجزای اصلی یک سیستم خورشیدی</h3>
+                    <p>یک سیستم خورشیدی کامل شامل این بخش‌هاست:</p>
+                    <ol class="list-decimal list-inside space-y-2 mr-4 text-gray-600">
+                        <li><strong>پنل‌های خورشیدی:</strong> تولیدکننده اصلی برق DC</li>
+                        <li><strong>اینورتر:</strong> تبدیل برق DC به AC (برق شهر)</li>
+                        <li><strong>باتری (اختیاری):</strong> ذخیره برق برای شب یا روزهای ابری</li>
+                        <li><strong>کنترل‌کننده شارژ:</strong> مدیریت ورود و خروج برق به باتری</li>
+                        <li><strong>کنتور دوطرفه:</strong> برای فروش برق اضافی به شبکه</li>
+                    </ol>
+
+                    <h3 class="text-xl font-bold text-gray-900 mt-6 mb-3">انواع سیستم‌های خورشیدی</h3>
+                    <div class="bg-blue-50 p-4 rounded-xl my-4">
+                        <p class="font-bold text-blue-900">۱. سیستم متصل به شبکه (On-Grid)</p>
+                        <p class="text-sm text-blue-800 mt-1">رایج‌ترین نوع در ایران. برق تولیدی به شبکه سراسری متصل می‌شود و برق اضافی فروخته می‌شود.</p>
+                    </div>
+                    <div class="bg-green-50 p-4 rounded-xl my-4">
+                        <p class="font-bold text-green-900">۲. سیستم مستقل (Off-Grid)</p>
+                        <p class="text-sm text-green-800 mt-1">مناسب مناطق بدون برق شهر. نیاز به باتری دارد و کاملاً مستقل عمل می‌کند.</p>
+                    </div>
+                    <div class="bg-purple-50 p-4 rounded-xl my-4">
+                        <p class="font-bold text-purple-900">۳. سیستم هیبریدی (Hybrid)</p>
+                        <p class="text-sm text-purple-800 mt-1">ترکیبی از دو سیستم بالا. هم به شبکه متصل است و هم باتری دارد.</p>
+                    </div>
+
+                    <p class="mt-6">با پیشرفت تکنولوژی، راندمان پنل‌ها از ۱۵٪ به بیش از ۲۲٪ رسیده و قیمت‌ها نیز ۸۰٪ کاهش یافته است. این یعنی الان بهترین زمان برای سرمایه‌گذاری در انرژی خورشیدی است!</p>
+                `
+            },
+            2: {
+                title: "راهنمای کامل محاسبه بازگشت سرمایه",
+                category: "اقتصاد",
+                icon: "💰",
+                readTime: "۱۲ دقیقه",
+                content: `
+                    <p>یکی از مهم‌ترین سوالاتی که مشتریان می‌پرسند این است: <strong>«چقدر طول می‌کشد تا پولم برگردد؟»</strong> در این مقاله به صورت کامل محاسبه می‌کنیم.</p>
+
+                    <h3 class="text-xl font-bold text-gray-900 mt-6 mb-3">فرمول اصلی بازگشت سرمایه</h3>
+                    <div class="bg-brand-50 p-4 rounded-xl border-r-4 border-brand-500 my-4">
+                        <p class="font-bold text-brand-900">بازگشت سرمایه = هزینه کل نصب ÷ صرفه‌جویی سالانه</p>
+                    </div>
+
+                    <h3 class="text-xl font-bold text-gray-900 mt-6 mb-3">مثال عملی: یک خانه ۲۰۰ متری</h3>
+                    <p>فرض کنید مصرف ماهانه برق شما <strong>۴۰۰ کیلووات ساعت</strong> است:</p>
+                    
+                    <table class="w-full mt-4 border-collapse">
+                        <tr class="bg-gray-100">
+                            <th class="p-3 text-right border">آیتم</th>
+                            <th class="p-3 text-right border">مقدار</th>
+                        </tr>
+                        <tr>
+                            <td class="p-3 border">مصرف سالانه</td>
+                            <td class="p-3 border">۴,۸۰۰ کیلووات</td>
+                        </tr>
+                        <tr class="bg-gray-50">
+                            <td class="p-3 border">قیمت هر کیلووات (متوسط)</td>
+                            <td class="p-3 border">۲,۵۰۰ تومان</td>
+                        </tr>
+                        <tr>
+                            <td class="p-3 border">هزینه سالانه برق</td>
+                            <td class="p-3 border">۱۲,۰۰۰,۰۰۰ تومان</td>
+                        </tr>
+                        <tr class="bg-gray-50">
+                            <td class="p-3 border">هزینه نصب سیستم ۵ کیلوواتی</td>
+                            <td class="p-3 border">۶۰,۰۰۰,۰۰۰ تومان</td>
+                        </tr>
+                        <tr class="bg-green-50">
+                            <td class="p-3 border font-bold">صرفه‌جویی سالانه (۹۰٪)</td>
+                            <td class="p-3 border font-bold text-green-700">۱۰,۸۰۰,۰۰۰ تومان</td>
+                        </tr>
+                        <tr class="bg-brand-50">
+                            <td class="p-3 border font-bold">بازگشت سرمایه</td>
+                            <td class="p-3 border font-bold text-brand-700">۵.۵ سال</td>
+                        </tr>
+                    </table>
+
+                    <h3 class="text-xl font-bold text-gray-900 mt-6 mb-3">عوامل تأثیرگذار بر بازگشت سرمایه</h3>
+                    <ul class="list-disc list-inside space-y-2 mr-4 text-gray-600">
+                        <li><strong>افزایش قیمت برق:</strong> هر سال قیمت برق ۲۰-۳۰٪ گران می‌شود که ROI را به ۴ سال هم می‌رساند</li>
+                        <li><strong>راندمان پنل:</strong> پنل‌های با کیفیت راندمان بالاتری دارند</li>
+                        <li><strong>جهت‌گیری:</strong> پنل‌ها باید جنوبی نصب شوند</li>
+                        <li><strong>زاویه:</strong> زاویه ۳۰-۳۵ درجه بهترین بازده را دارد</li>
+                    </ul>
+
+                    <div class="bg-green-50 p-4 rounded-xl border-r-4 border-green-500 my-6">
+                        <p class="font-bold text-green-900">💡 نتیجه‌گیری:</p>
+                        <p class="text-sm text-green-800 mt-1">با احتساب افزایش سالانه قیمت برق، بازگشت سرمایه در عمل به ۴ سال هم می‌رسد. بعد از آن، ۲۰ سال برق رایگان دارید!</p>
+                    </div>
+                `
+            },
+            3: {
+                title: "تفاوت پنل‌های مونو و پلی کریستال",
+                category: "تکنولوژی",
+                icon: "🔬",
+                readTime: "۱۰ دقیقه",
+                content: `
+                    <p>وقتی برای خرید پنل خورشیدی اقدام می‌کنید، با دو اصطلاح <strong>Monocrystalline</strong> و <strong>Polycrystalline</strong> روبرو می‌شوید. بیایید تفاوت‌ها را بفهمیم.</p>
+
+                    <h3 class="text-xl font-bold text-gray-900 mt-6 mb-3">پنل مونو کریستال (Mono)</h3>
+                    <div class="bg-blue-50 p-4 rounded-xl my-4">
+                        <p class="font-bold text-blue-900">ساختار:</p>
+                        <p class="text-sm text-blue-800 mt-1">سلول‌ها از یک بلور سیلیکون خالص ساخته می‌شوند. رنگ سلول‌ها یکدست و تیره (مشکی یا آبی تیره) است.</p>
+                    </div>
+                    <ul class="list-disc list-inside space-y-2 mr-4 text-gray-600">
+                        <li>✅ راندمان بالاتر: ۲۰-۲۲٪</li>
+                        <li>✅ عمر طولانی‌تر: ۲۵-۳۰ سال</li>
+                        <li>✅ عملکرد بهتر در نور کم (صبح/عصر)</li>
+                        <li>✅ فضای کمتری نیاز دارد</li>
+                        <li>❌ قیمت بالاتر: ۱۵-۲۰٪ گران‌تر</li>
+                    </ul>
+
+                    <h3 class="text-xl font-bold text-gray-900 mt-6 mb-3">پنل پلی کریستال (Poly)</h3>
+                    <div class="bg-green-50 p-4 rounded-xl my-4">
+                        <p class="font-bold text-green-900">ساختار:</p>
+                        <p class="text-sm text-green-800 mt-1">سلول‌ها از چندین بلور سیلیکون کوچک ساخته می‌شوند. رنگ آبی روشن و سطحی مانند بلور دارد.</p>
+                    </div>
+                    <ul class="list-disc list-inside space-y-2 mr-4 text-gray-600">
+                        <li>✅ قیمت پایین‌تر</li>
+                        <li>✅ فرآیند تولید ساده‌تر و سازگار با محیط زیست</li>
+                        <li>❌ راندمان پایین‌تر: ۱۵-۱۷٪</li>
+                        <li>❌ فضای بیشتری نیاز دارد</li>
+                        <li>❌ در دمای بالا بازده کمتری دارد</li>
+                    </ul>
+
+                    <h3 class="text-xl font-bold text-gray-900 mt-6 mb-3">کدام را انتخاب کنم؟</h3>
+                    <table class="w-full mt-4 border-collapse">
+                        <tr class="bg-gray-100">
+                            <th class="p-3 text-right border">معیار</th>
+                            <th class="p-3 text-right border">مونو</th>
+                            <th class="p-3 text-right border">پلی</th>
+                        </tr>
+                        <tr>
+                            <td class="p-3 border">قیمت</td>
+                            <td class="p-3 border text-red-600">گران‌تر</td>
+                            <td class="p-3 border text-green-600">ارزان‌تر</td>
+                        </tr>
+                        <tr class="bg-gray-50">
+                            <td class="p-3 border">راندمان</td>
+                            <td class="p-3 border text-green-600">۲۰-۲۲٪</td>
+                            <td class="p-3 border text-yellow-600">۱۵-۱۷٪</td>
+                        </tr>
+                        <tr>
+                            <td class="p-3 border">فضا (برای ۵ کیلووات)</td>
+                            <td class="p-3 border text-green-600">۲۵ متر</td>
+                            <td class="p-3 border text-yellow-600">۳۵ متر</td>
+                        </tr>
+                        <tr class="bg-gray-50">
+                            <td class="p-3 border">عمر مفید</td>
+                            <td class="p-3 border text-green-600">۳۰ سال</td>
+                            <td class="p-3 border text-yellow-600">۲۵ سال</td>
+                        </tr>
+                    </table>
+
+                    <div class="bg-brand-50 p-4 rounded-xl border-r-4 border-brand-500 my-6">
+                        <p class="font-bold text-brand-900">🎯 پیشنهاد ما:</p>
+                        <p class="text-sm text-brand-800 mt-1">اگه فضا محدود است یا به دنبال بازگشت سرمایه سریع‌تر هستید، <strong>مونو</strong> بخرید. اگه فضا زیاد دارید و بودجه محدود است، <strong>پلی</strong> گزینه خوبی است.</p>
+                    </div>
+                `
+            },
+            4: {
+                title: "آیا نصب پنل در آپارتمان امکان‌پذیر است؟",
+                category: "آپارتمان",
+                icon: "🏢",
+                readTime: "۸ دقیقه",
+                content: `
+                    <p>بله! نصب پنل خورشیدی در آپارتمان <strong>کاملاً امکان‌پذیر</strong> است، اما با شرایط خاص. در این مقاله همه چیز را توضیح می‌دهیم.</p>
+
+                    <h3 class="text-xl font-bold text-gray-900 mt-6 mb-3">روش‌های نصب در آپارتمان</h3>
+                    
+                    <div class="bg-blue-50 p-4 rounded-xl my-4">
+                        <p class="font-bold text-blue-900">۱. نصب روی پشت‌بام مشترک</p>
+                        <p class="text-sm text-blue-800 mt-1">رایج‌ترین روش. پنل‌ها روی پشت‌بام نصب می‌شوند و برق تولیدی بین واحدها تقسیم می‌شود.</p>
+                    </div>
+
+                    <div class="bg-green-50 p-4 rounded-xl my-4">
+                        <p class="font-bold text-green-900">۲. نصب روی تراس یا بالکن</p>
+                        <p class="text-sm text-green-800 mt-1">برای آپارتمان‌های طبقات بالا. پنل‌های قابل حمل و کوچک مناسب این کار هستند.</p>
+                    </div>
+
+                    <div class="bg-purple-50 p-4 rounded-xl my-4">
+                        <p class="font-bold text-purple-900">۳. نصب روی دیوار جنوبی</p>
+                        <p class="text-sm text-purple-800 mt-1">اگه پشت‌بام یا تراس ندارید، پنل‌های دیواری گزینه مناسبی هستند، هرچند بازده کمتری دارند.</p>
+                    </div>
+
+                    <h3 class="text-xl font-bold text-gray-900 mt-6 mb-3">مجوزهای لازم</h3>
+                    <ol class="list-decimal list-inside space-y-2 mr-4 text-gray-600">
+                        <li><strong>مجمع عمومی:</strong> رضایت ۷۵٪ مالکان برای استفاده از پشت‌بام</li>
+                        <li><strong>مدیر ساختمان:</strong> هماهنگی برای دسترسی به پشت‌بام</li>
+                        <li><strong>شرکت برق:</strong> درخواست کنتور دوطرفه (Net Metering)</li>
+                        <li><strong>شهرداری:</strong> در برخی موارد نیاز به مجوز ساختمانی دارد</li>
+                    </ol>
+
+                    <h3 class="text-xl font-bold text-gray-900 mt-6 mb-3">محاسبه سهم هر واحد</h3>
+                    <p>فرض کنید یک ساختمان ۱۰ واحدی ۵۰۰ کیلووات برق تولید کند:</p>
+                    <div class="bg-gray-50 p-4 rounded-xl my-4">
+                        <p>سهم هر واحد = ۵۰۰ ÷ ۱۰ = <strong>۵۰ کیلووات</strong></p>
+                        <p class="text-sm text-gray-600 mt-2">البته می‌توان بر اساس مصرف یا متراژ هم تقسیم کرد.</p>
+                    </div>
+
+                    <div class="bg-green-50 p-4 rounded-xl border-r-4 border-green-500 my-6">
+                        <p class="font-bold text-green-900">✅ نتیجه:</p>
+                        <p class="text-sm text-green-800 mt-1">نصب پنل در آپارتمان نه تنها امکان‌پذیر است، بلکه باعث <strong>افزایش ارزش ساختمان</strong> و <strong>کاهش ۵۰-۷۰٪ قبض برق</strong> مشترکین می‌شود.</p>
+                    </div>
+                `
+            },
+            5: {
+                title: "راهنمای خرید اینورتر مناسب",
+                category: "تجهیزات",
+                icon: "🔋",
+                readTime: "۱۴ دقیقه",
+                content: `
+                    <p><strong>اینورتر</strong> قلب تپنده سیستم خورشیدی است. اگه اینورتر خوب نخرید، بهترین پنل‌ها هم کارایی نخواهند داشت.</p>
+
+                    <h3 class="text-xl font-bold text-gray-900 mt-6 mb-3">اینورتر چه کار می‌کند؟</h3>
+                    <p>پنل‌ها برق <strong>DC (مستقیم)</strong> تولید می‌کنند، ولی لوازم خانه برق <strong>AC (متناوب)</strong> نیاز دارند. اینورتر این تبدیل را انجام می‌دهد.</p>
+
+                    <h3 class="text-xl font-bold text-gray-900 mt-6 mb-3">انواع اینورتر</h3>
+                    
+                    <div class="bg-blue-50 p-4 rounded-xl my-4">
+                        <p class="font-bold text-blue-900">۱. اینورتر رشته‌ای (String Inverter)</p>
+                        <p class="text-sm text-blue-800 mt-1">رایج‌ترین نوع. چند پنل به صورت رشته‌ای به هم وصل می‌شوند و به یک اینورتر مرکزی می‌روند. مناسب سقف‌های بدون سایه.</p>
+                    </div>
+
+                    <div class="bg-green-50 p-4 rounded-xl my-4">
+                        <p class="font-bold text-green-900">۲. اینورتر میکرو (Micro Inverter)</p>
+                        <p class="text-sm text-green-800 mt-1">هر پنل یک اینورتر کوچک دارد. گران‌تر است ولی بازده بالاتری در شرایط سایه دارد.</p>
+                    </div>
+
+                    <div class="bg-purple-50 p-4 rounded-xl my-4">
+                        <p class="font-bold text-purple-900">۳. اینورتر هیبریدی (Hybrid)</p>
+                        <p class="text-sm text-purple-800 mt-1">هم برق AC تولید می‌کند و هم می‌تواند باتری را مدیریت کند. مناسب سیستم‌های Off-Grid و Hybrid.</p>
+                    </div>
+
+                    <h3 class="text-xl font-bold text-gray-900 mt-6 mb-3">جدول مقایسه</h3>
+                    <table class="w-full mt-4 border-collapse">
+                        <tr class="bg-gray-100">
+                            <th class="p-3 text-right border">ویژگی</th>
+                            <th class="p-3 text-right border">رشته‌ای</th>
+                            <th class="p-3 text-right border">میکرو</th>
+                        </tr>
+                        <tr>
+                            <td class="p-3 border">قیمت هر کیلووات</td>
+                            <td class="p-3 border text-green-600">ارزان‌تر</td>
+                            <td class="p-3 border text-red-600">گران‌تر</td>
+                        </tr>
+                        <tr class="bg-gray-50">
+                            <td class="p-3 border">بازده در سایه</td>
+                            <td class="p-3 border text-red-600">پایین</td>
+                            <td class="p-3 border text-green-600">بالا</td>
+                        </tr>
+                        <tr>
+                            <td class="p-3 border">عیب‌یابی</td>
+                            <td class="p-3 border text-yellow-600">سخت‌تر</td>
+                            <td class="p-3 border text-green-600">آسان</td>
+                        </tr>
+                        <tr class="bg-gray-50">
+                            <td class="p-3 border">عمر مفید</td>
+                            <td class="p-3 border">۱۰-۱۵ سال</td>
+                            <td class="p-3 border">۲۰-۲۵ سال</td>
+                        </tr>
+                    </table>
+
+                    <h3 class="text-xl font-bold text-gray-900 mt-6 mb-3">نکات خرید</h3>
+                    <ul class="list-disc list-inside space-y-2 mr-4 text-gray-600">
+                        <li>توان اینورتر باید ۱۰-۲۰٪ بیشتر از توان پنل‌ها باشد</li>
+                        <li>گارانتی حداقل ۵ سال داشته باشد</li>
+                        <li>استاندارد IP65 (ضد آب و گردوغبار) برای نصب خارجی</li>
+                        <li>برندهای معتبر: SMA, Fronius, Huawei, Growatt</li>
+                    </ul>
+
+                    <div class="bg-brand-50 p-4 rounded-xl border-r-4 border-brand-500 my-6">
+                        <p class="font-bold text-brand-900">⚠️ هشدار:</p>
+                        <p class="text-sm text-brand-800 mt-1">هرگز اینورتر دست دوم یا بدون گارانتی نخرید! تعمیر اینورتر بسیار گران است و گاهی غیرممکن.</p>
+                    </div>
+                `
+            },
+            6: {
+                title: "نگهداری و شستشوی پنل‌های خورشیدی",
+                category: "نگهداری",
+                icon: "🛠️",
+                readTime: "۶ دقیقه",
+                content: `
+                    <p>پنل‌های خورشیدی تقریباً <strong>بدون نیاز به نگهداری</strong> هستند، ولی یک شستشوی ساده سالانه می‌تواند بازده را ۱۰-۱۵٪ افزایش دهد.</p>
+
+                    <h3 class="text-xl font-bold text-gray-900 mt-6 mb-3">چرا پنل‌ها کثیف می‌شوند؟</h3>
+                    <ul class="list-disc list-inside space-y-2 mr-4 text-gray-600">
+                        <li>گرد و غبار (مخصوصاً در مناطق خشک)</li>
+                        <li>مدفوع پرندگان</li>
+                        <li>برگ درختان</li>
+                        <li>آب باران و رسوبات معدنی</li>
+                        <li>دوده و آلودگی صنعتی</li>
+                    </ul>
+
+                    <h3 class="text-xl font-bold text-gray-900 mt-6 mb-3">بهترین زمان شستشو</h3>
+                    <div class="bg-blue-50 p-4 rounded-xl my-4">
+                        <p class="font-bold text-blue-900">فصول:</p>
+                        <p class="text-sm text-blue-800 mt-1">اواخر بهار (بعد از گردوغبار بهاری) و اواخر تابستان (بعد از ریزگردها)</p>
+                    </div>
+                    <div class="bg-green-50 p-4 rounded-xl my-4">
+                        <p class="font-bold text-green-900">ساعت:</p>
+                        <p class="text-sm text-green-800 mt-1">صبح زود (قبل از طلوع) یا عصر (بعد از غروب). هرگز در ظهر تابستان شستشو نکنید!</p>
+                    </div>
+
+                    <h3 class="text-xl font-bold text-gray-900 mt-6 mb-3">روش صحیح شستشو</h3>
+                    <ol class="list-decimal list-inside space-y-2 mr-4 text-gray-600">
+                        <li>ابتدا سیستم را از برق جدا کنید (ایمنی اول)</li>
+                        <li>آب معمولی (نه گرم، نه سرد) با شلنگ بپاشید</li>
+                        <li>از اسفنج نرم و آب صابون ملایم استفاده کنید</li>
+                        <li>هرگز از مواد شیمیایی یا اسکاچ سخت استفاده نکنید</li>
+                        <li>با آب تمیز آبکشی کنید</li>
+                        <li>اجازه دهید خودش خشک شود (پاک نکنید)</li>
+                    </ol>
+
+                    <h3 class="text-xl font-bold text-gray-900 mt-6 mb-3">فاصله شستشو</h3>
+                    <table class="w-full mt-4 border-collapse">
+                        <tr class="bg-gray-100">
+                            <th class="p-3 text-right border">منطقه</th>
+                            <th class="p-3 text-right border">فاصله توصیه شده</th>
+                        </tr>
+                        <tr>
+                            <td class="p-3 border">شهرهای صنعتی/پرگردوغبار</td>
+                            <td class="p-3 border text-red-600">هر ۲-۳ ماه</td>
+                        </tr>
+                        <tr class="bg-gray-50">
+                            <td class="p-3 border">شهرهای معتدل</td>
+                            <td class="p-3 border text-yellow-600">هر ۶ ماه</td>
+                        </tr>
+                        <tr>
+                            <td class="p-3 border">مناطق بارانی</td>
+                            <td class="p-3 border text-green-600">یک بار در سال کافی است</td>
+                        </tr>
+                    </table>
+
+                    <div class="bg-red-50 p-4 rounded-xl border-r-4 border-red-500 my-6">
+                        <p class="font-bold text-red-900">⛔ ممنوع:</p>
+                        <ul class="list-disc list-inside text-sm text-red-800 mt-1 mr-4">
+                            <li>قدم زدن روی پنل‌ها</li>
+                            <li>استفاده از فشار آب بسیار بالا</li>
+                            <li>شستشو در هوای برفی یا یخبندان</li>
+                            <li>استخدام افراد غیرمتخصص برای شستشوی پشت‌بام‌های بلند</li>
+                        </ul>
+                    </div>
+
+                    <p class="mt-6">با رعایت این نکات ساده، پنل‌های شما سال‌ها با بالاترین راندمان کار خواهند کرد. یادتان باشد: <strong>پیشگیری بهتر از درمان است!</strong></p>
+                `
+            }
+        };
+
+        // باز کردن مقاله
+        function openArticle(id) {
+            const article = articles[id];
+            if (!article) return;
+
+            document.getElementById('modalTitle').innerText = article.title;
+            document.getElementById('modalCategory').innerText = article.category;
+            document.getElementById('modalIcon').innerText = article.icon;
+            document.getElementById('modalReadTime').innerText = article.readTime;
+            document.getElementById('modalBody').innerHTML = article.content;
+
+            const modal = document.getElementById('articleModal');
+            modal.classList.remove('hidden');
+            document.body.style.overflow = 'hidden'; // جلوگیری از اسکرول پس‌زمینه
+        }
+
+        // بستن مقاله
+        function closeArticle() {
+            const modal = document.getElementById('articleModal');
+            modal.classList.add('hidden');
+            document.body.style.overflow = 'auto'; // فعال کردن مجدد اسکرول
+        }
+
+        // بستن با کلیک روی پس‌زمینه
+        document.getElementById('articleModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeArticle();
+            }
+        });
+
+        // بستن با دکمه Escape
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeArticle();
+            }
+        });
     </script>
-<script data-goatcounter="https://saeed.goatcounter.com/count"
-        async src="//gc.zgo.at/count.js"></script>
 
 </body>
 </html>
