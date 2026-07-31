@@ -142,28 +142,6 @@
                     </div>
                 </article>
 
-                <!-- مقاله ۲ -->
-                <article class="bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition border border-gray-100 group">
-                    <div class="h-48 bg-gradient-to-br from-green-400 to-emerald-600 flex items-center justify-center text-5xl relative overflow-hidden">
-                        <div class="absolute inset-0 bg-black/10"></div>
-                        <span class="relative z-10">💰</span>
-                    </div>
-                    <div class="p-6">
-                        <div class="flex items-center gap-3 mb-3 text-xs text-gray-400">
-                            <span class="bg-green-50 text-green-600 px-2 py-1 rounded-md">اقتصاد</span>
-                            <span>۱۲ دقیقه مطالعه</span>
-                        </div>
-                        <h3 class="text-xl font-bold text-gray-900 mb-3 group-hover:text-brand-600 transition">
-                            راهنمای کامل محاسبه بازگشت سرمایه
-                        </h3>
-                        <p class="text-gray-500 text-sm leading-relaxed mb-4">
-                            چگونه با محاسبه دقیق هزینه‌ها و صرفه‌جویی‌ها، بهترین تصمیم اقتصادی برای نصب پنل بگیرید.
-                        </p>
-                        <button onclick="openArticle(2)" class="text-brand-600 font-bold text-sm hover:text-brand-700 transition flex items-center gap-1">
-                            ادامه مطلب ←
-                        </button>
-                    </div>
-                </article>
 
                 <!-- مقاله ۳ -->
                 <article class="bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition border border-gray-100 group">
@@ -392,67 +370,6 @@
                     </div>
 
                     <p class="mt-6">با پیشرفت تکنولوژی، راندمان پنل‌ها از ۱۵٪ به بیش از ۲۲٪ رسیده و قیمت‌ها نیز ۸۰٪ کاهش یافته است. این یعنی الان بهترین زمان برای سرمایه‌گذاری در انرژی خورشیدی است!</p>
-                `
-            },
-            2: {
-                title: "راهنمای کامل محاسبه بازگشت سرمایه",
-                category: "اقتصاد",
-                icon: "💰",
-                readTime: "۱۲ دقیقه",
-                content: `
-                    <p>یکی از مهم‌ترین سوالاتی که مشتریان می‌پرسند این است: <strong>«چقدر طول می‌کشد تا پولم برگردد؟»</strong> در این مقاله به صورت کامل محاسبه می‌کنیم.</p>
-
-                    <h3 class="text-xl font-bold text-gray-900 mt-6 mb-3">فرمول اصلی بازگشت سرمایه</h3>
-                    <div class="bg-brand-50 p-4 rounded-xl border-r-4 border-brand-500 my-4">
-                        <p class="font-bold text-brand-900">بازگشت سرمایه = هزینه کل نصب ÷ صرفه‌جویی سالانه</p>
-                    </div>
-
-                    <h3 class="text-xl font-bold text-gray-900 mt-6 mb-3">مثال عملی: یک خانه ۲۰۰ متری</h3>
-                    <p>فرض کنید مصرف ماهانه برق شما <strong>۴۰۰ کیلووات ساعت</strong> است:</p>
-                    
-                    <table class="w-full mt-4 border-collapse">
-                        <tr class="bg-gray-100">
-                            <th class="p-3 text-right border">آیتم</th>
-                            <th class="p-3 text-right border">مقدار</th>
-                        </tr>
-                        <tr>
-                            <td class="p-3 border">مصرف سالانه</td>
-                            <td class="p-3 border">۴,۸۰۰ کیلووات</td>
-                        </tr>
-                        <tr class="bg-gray-50">
-                            <td class="p-3 border">قیمت هر کیلووات (متوسط)</td>
-                            <td class="p-3 border">۲,۵۰۰ تومان</td>
-                        </tr>
-                        <tr>
-                            <td class="p-3 border">هزینه سالانه برق</td>
-                            <td class="p-3 border">۱۲,۰۰۰,۰۰۰ تومان</td>
-                        </tr>
-                        <tr class="bg-gray-50">
-                            <td class="p-3 border">هزینه نصب سیستم ۵ کیلوواتی</td>
-                            <td class="p-3 border">۶۰,۰۰۰,۰۰۰ تومان</td>
-                        </tr>
-                        <tr class="bg-green-50">
-                            <td class="p-3 border font-bold">صرفه‌جویی سالانه (۹۰٪)</td>
-                            <td class="p-3 border font-bold text-green-700">۱۰,۸۰۰,۰۰۰ تومان</td>
-                        </tr>
-                        <tr class="bg-brand-50">
-                            <td class="p-3 border font-bold">بازگشت سرمایه</td>
-                            <td class="p-3 border font-bold text-brand-700">۵.۵ سال</td>
-                        </tr>
-                    </table>
-
-                    <h3 class="text-xl font-bold text-gray-900 mt-6 mb-3">عوامل تأثیرگذار بر بازگشت سرمایه</h3>
-                    <ul class="list-disc list-inside space-y-2 mr-4 text-gray-600">
-                        <li><strong>افزایش قیمت برق:</strong> هر سال قیمت برق ۲۰-۳۰٪ گران می‌شود که ROI را به ۴ سال هم می‌رساند</li>
-                        <li><strong>راندمان پنل:</strong> پنل‌های با کیفیت راندمان بالاتری دارند</li>
-                        <li><strong>جهت‌گیری:</strong> پنل‌ها باید جنوبی نصب شوند</li>
-                        <li><strong>زاویه:</strong> زاویه ۳۰-۳۵ درجه بهترین بازده را دارد</li>
-                    </ul>
-
-                    <div class="bg-green-50 p-4 rounded-xl border-r-4 border-green-500 my-6">
-                        <p class="font-bold text-green-900">💡 نتیجه‌گیری:</p>
-                        <p class="text-sm text-green-800 mt-1">با احتساب افزایش سالانه قیمت برق، بازگشت سرمایه در عمل به ۴ سال هم می‌رسد. بعد از آن، ۲۰ سال برق رایگان دارید!</p>
-                    </div>
                 `
             },
             3: {
